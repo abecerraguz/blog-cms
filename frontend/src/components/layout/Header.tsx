@@ -1,7 +1,7 @@
 // src/components/layout/Header.tsx
 import logotipoBlog from '@/assets/img/blog.png'
 import { useTema } from '@/context/TemaContext'
-import { useAuth } from "@/context/AuthContext"
+import { useAuth } from '@/context/AuthContext'
 
 interface HeaderProps {
   titulo: string
@@ -9,7 +9,7 @@ interface HeaderProps {
 
 export function Header({ titulo }: HeaderProps) {
   const { tema, toggleTema } = useTema()
-  const { isAuthenticated, logout } = useAuth()
+  const { isAuthenticated, usuario, logout } = useAuth()
 
   return (
     <nav className="navbar">
@@ -20,6 +20,7 @@ export function Header({ titulo }: HeaderProps) {
         </a>
 
         <div className="navbar__actions">
+          {/* Toggle tema */}
           <button
             onClick={toggleTema}
             className="navbar__theme-toggle"
@@ -28,18 +29,25 @@ export function Header({ titulo }: HeaderProps) {
             <i className={tema === 'claro' ? 'bi bi-moon' : 'bi bi-brightness-high'}></i>
           </button>
 
-          {/* <a href="/admin/index.html" className="navbar__registrarse">
-            <i className="bi bi-person-circle"></i>
-            <span>Registrarse</span>
-          </a> */}
-          {isAuthenticated
-            ? <button onClick={logout} className="navbar__registrarse">
+          {/* Si está autenticado → muestra usuario y logout */}
+          {isAuthenticated ? (
+            <div className="admin-user">
+              <i className="bi bi-person-circle"></i>
+              <span>{usuario?.nombre}</span>
+              <button
+                onClick={logout}
+                className="btn btn--sm btn--danger"
+                style={{ marginLeft: '8px' }}
+              >
                 <i className="bi bi-box-arrow-right"></i> Salir
               </button>
-            : <a href="/login" className="navbar__registrarse">
-                <i className="bi bi-person-circle"></i> Registrarse
-              </a>
-          }
+            </div>
+          ) : (
+            <a href="/login" className="navbar__registrarse">
+              <i className="bi bi-person-circle"></i>
+              <span>Registrarse</span>
+            </a>
+          )}
         </div>
       </div>
     </nav>

@@ -21,7 +21,7 @@ export function HomePage() {
           <div className="container">
             <div className="row g-4">
 
-       {/* Momento 1 — cargando: muestra 4 siluetas */}
+              {/* Momento 1 — cargando: muestra 4 siluetas */}
               {cargando && (
                 <>
                   <ArticuloCardSkeleton />
