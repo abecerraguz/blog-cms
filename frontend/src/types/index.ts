@@ -3,7 +3,9 @@
 // ── Categoria ──────────────────────────────────────────────
 export type CategoriaSlug =
   | "tecnologia"
+  | "cosplay"
   | "diseno"
+  | "series"
   | "programacion"
   | "herramientas";
 

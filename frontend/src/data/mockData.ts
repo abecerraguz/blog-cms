@@ -1,9 +1,23 @@
 // src/data/mockData.ts
 import type { Articulo, Categoria } from "@/types";
 
+/*
+| "tecnologia"
+  | "cosplay"
+  | "diseno"
+  | "series"
+  | "programacion"
+  | "herramientas";
+
+*/
+
 export const CATEGORIAS: Categoria[] = [
   { id: 1, nombre: "Tecnología", slug: "tecnologia", color: "#3b82f6" },
   { id: 2, nombre: "Diseño", slug: "diseno", color: "#8b5cf6" },
+  { id: 3, nombre: "Cosplay", slug: "cosplay", color: "#6b33a0" },
+  { id: 4, nombre: "Series", slug: "series", color: "#136e3c" },
+  { id: 5, nombre: "Programacion", slug: "programacion", color: "#6e6b13" },
+  { id: 6, nombre: "Herramientas", slug: "herramientas", color: "#3e195e" },
 ];
 
 export const ARTICULOS_MOCK: Articulo[] = [
@@ -30,7 +44,7 @@ export const ARTICULOS_MOCK: Articulo[] = [
     extracto: "Un artista recrea con asombroso detalle al villano cibérnetico de Dragon Ball Z.",
     contenido: "<p>Un cosplayer logró recrear con un detalle increíble al Androide 20 de Dragon Ball Z...</p>",
     imagen: "/uploads/1062526.jpeg",
-    categoria: CATEGORIAS[1],
+    categoria: CATEGORIAS[3],
     tags: [{ id: 2, nombre: "Cosplay", slug: "cosplay" }, { id: 3, nombre: "Dragon Ball", slug: "dragon-ball" }],
     autor: "Administrador",
     tiempoLectura: 4,
@@ -46,7 +60,7 @@ export const ARTICULOS_MOCK: Articulo[] = [
     extracto: "Una producción que combina thriller psicológico con drama familiar de manera magistral.",
     contenido: "<p>Esta mini serie de apenas 6 episodios ha conquistado a la crítica especializada...</p>",
     imagen: "/uploads/809d820d82096339f4615fc856e7a0f411ed69cd-2200x1414.webp",
-    categoria: CATEGORIAS[0],
+    categoria: CATEGORIAS[3],
     tags: [{ id: 4, nombre: "Series", slug: "series" }],
     autor: "Administrador",
     tiempoLectura: 3,
@@ -62,7 +76,7 @@ export const ARTICULOS_MOCK: Articulo[] = [
     extracto: "Vivir la experiencia de construir tu videojuego favorito y sus icónicos personajes hoy es posible gracias a los sets de LEGO.",
     contenido: "<p>Los sets de LEGO inspirados en videojuegos están revolucionando el mundo del juego...</p>",
     imagen: "/uploads/izx076h3empnhoygqqcl.jpeg",
-    categoria: CATEGORIAS[0],
+    categoria: CATEGORIAS[2],
     tags: [{ id: 5, nombre: "Videojuegos", slug: "videojuegos" }, { id: 6, nombre: "LEGO", slug: "lego" }],
     autor: "Administrador",
     tiempoLectura: 6,

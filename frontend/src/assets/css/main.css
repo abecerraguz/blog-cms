@@ -154,6 +154,22 @@ img {
   background: #e6b830;
   color: var(--primary-dark);
 }
+.navbar__link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  background: var(--accent);
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.navbar__link:hover {
+  background: #e6b830;
+  color: var(--primary-dark);
+}
 .navbar__theme-toggle {
   background: none;
   border: none;

@@ -245,6 +245,24 @@ img {
     }
   }
 
+    &__link {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    color: var(--primary);
+    background: var(--accent);
+    padding: 9px 18px;
+    border-radius: $radius-sm;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    transition: var(--transition);
+
+    &:hover {
+      background: #e6b830;
+      color: var(--primary-dark);
+    }
+  }
+
   // Botón toggle tema (sin estilos de botón nativo)
   &__theme-toggle {
     background: none;
