@@ -2,6 +2,7 @@
 import logotipoBlog from '@/assets/img/blog.png'
 import { useTema } from '@/context/TemaContext'
 import { useAuth } from '@/context/AuthContext'
+import { Link } from 'react-router-dom'
 
 interface HeaderProps {
   titulo: string
@@ -43,10 +44,10 @@ export function Header({ titulo }: HeaderProps) {
               </button>
             </div>
           ) : (
-            <a href="/login" className="navbar__registrarse">
+            <Link to="/admin/login" className="navbar__registrarse">
               <i className="bi bi-person-circle"></i>
               <span>Registrarse</span>
-            </a>
+            </Link>
           )}
         </div>
       </div>

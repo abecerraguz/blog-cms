@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import type { Articulo } from "@/types";
 import { CategoriaBadge } from '@/components/CategoriaBadge';
+import { Link } from 'react-router-dom'  // ← nuevo
 
 interface ArticuloCardProps {
   articulo: Articulo;
@@ -23,7 +24,7 @@ export const ArticuloCard = memo( function ArticuloCard({ articulo }: ArticuloCa
                             </div>
                             <div className="post-card__body">
                                 <h3 className="post-card__title">
-                                    <a href="detalle.html">{articulo.titulo}</a>
+                                    <Link to={`/articulo/${articulo.slug}`}>{articulo.titulo}</Link>
                                 </h3>
                                 <div className="post-card__meta">
                                     <span><i className="bi bi-calendar3"></i> {articulo.fechaPublicacion}</span>
@@ -31,7 +32,7 @@ export const ArticuloCard = memo( function ArticuloCard({ articulo }: ArticuloCa
                                 </div>
                                 <p className="post-card__excerpt">{articulo.extracto}</p>
                                 <div className="post-card__footer">
-                                    <a href="detalle.html" className="btn btn--primary btn--sm">Leer más <i className="bi bi-arrow-right"></i></a>
+                                    <Link to={`/articulo/${articulo.slug}`} className="btn btn--primary btn--sm">Leer más <i className="bi bi-arrow-right"></i></Link>
                                 </div>
                             </div>
                         </div>

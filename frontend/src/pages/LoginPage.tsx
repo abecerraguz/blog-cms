@@ -1,35 +1,37 @@
-// src/pages/LoginPage.tsx
-import { useState, FormEvent } from 'react'
+// frontend/src/pages/LoginPage.tsx
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'  // ← nuevo
 import { useAuth } from '@/context/AuthContext'
 import logotipoBlog from '@/assets/img/blog.png'
+import { Link } from 'react-router-dom'
 
 export function LoginPage() {
   const { login } = useAuth()
+  const navigate  = useNavigate()  // ← nuevo
 
   const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
   const [error, setError]       = useState<string | null>(null)
   const [cargando, setCargando] = useState(false)
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     setError(null)
     setCargando(true)
 
     const exito = await login(email, password)
 
-    if (!exito) {
+    if (exito) {
+      navigate('/admin')  // ← redirige a la URL real
+    } else {
       setError('Email o contraseña incorrectos')
+      setCargando(false)
     }
-
-    setCargando(false)
-    // Semana 6: aquí irá navigate('/admin') con React Router
   }
 
   return (
     <div className="login-page">
       <div className="login-card">
-
         <div className="login-card__header">
           <img src={logotipoBlog} alt="Logo" className="login-card__logo" />
           <h1 className="login-card__title">Panel Admin</h1>
@@ -38,7 +40,6 @@ export function LoginPage() {
 
         <div className="login-card__body">
           <form onSubmit={handleSubmit}>
-
             <div className="form-group form-group--icon">
               <label className="form-group__label">Email</label>
               <div className="form-group__wrapper">
@@ -69,13 +70,10 @@ export function LoginPage() {
               </div>
             </div>
 
-            {/* Error de credenciales */}
             {error && (
-              <div className="mb-3">
-                <p style={{ color: 'var(--danger)', fontSize: '0.875rem' }}>
-                  <i className="bi bi-exclamation-circle me-1"></i>{error}
-                </p>
-              </div>
+              <p style={{ color: 'var(--danger)', fontSize: '0.875rem' }}>
+                <i className="bi bi-exclamation-circle me-1"></i>{error}
+              </p>
             )}
 
             <button
@@ -88,16 +86,15 @@ export function LoginPage() {
                 : <><i className="bi bi-box-arrow-in-right"></i> Ingresar</>
               }
             </button>
-
           </form>
-        </div>
-
-        <div className="login-card__footer">
-          <a href="/" className="login-card__back">
+          <div className="login-card__footer">
+          <Link to="/" className="login-card__back">
             <i className="bi bi-arrow-left"></i> Volver al Blog
-          </a>
+          </Link>
+        </div>
         </div>
 
+  
       </div>
     </div>
   )

@@ -3,6 +3,7 @@ import { useArticulosStore } from '@/store/articulosStore'
 import { useArticulosFiltrados } from '@/hooks/useArticulosFiltrados'
 import { useAuth } from '@/context/AuthContext'
 import logotipoBlog from '@/assets/img/blog.png'
+import { Link } from 'react-router-dom'
 
 // Función que mapea el slug al modificador CSS
 function getBadgeClass(slug: string): string {
@@ -52,9 +53,9 @@ export function AdminListado() {
               <h1><i className="bi bi-grid-1x2"></i> Publicaciones</h1>
               <p>Bienvenido <strong>{usuario?.nombre}</strong>, gestiona el contenido de tu blog.</p>
             </div>
-            <button className="btn btn--success">
+            <Link to="/admin/nuevo" className="btn btn--success">
               <i className="bi bi-plus-circle"></i> Nueva publicación
-            </button>
+            </Link>
           </div>
 
           {/* Tabla */}
@@ -141,9 +142,13 @@ export function AdminListado() {
                           })}
                         </td>
                         <td className="td-actions">
-                          <button className="btn-action btn-action--edit" title="Editar">
+                          <Link
+                            to={`/admin/editar/${articulo.slug}`}
+                            className="btn-action btn-action--edit"
+                            title="Editar"
+                          >
                             <i className="bi bi-pencil-square"></i>
-                          </button>
+                          </Link>
                           <button
                             className="btn-action btn-action--delete"
                             title="Eliminar"
