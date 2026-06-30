@@ -27,7 +27,11 @@ export const ArticuloCard = memo( function ArticuloCard({ articulo }: ArticuloCa
                                     <Link to={`/articulo/${articulo.slug}`}>{articulo.titulo}</Link>
                                 </h3>
                                 <div className="post-card__meta">
-                                    <span><i className="bi bi-calendar3"></i> {articulo.fechaPublicacion}</span>
+                                    <span>
+                                        <i className="bi bi-calendar3"></i> { new Date(articulo.fechaPublicacion).toLocaleDateString('es-CL', {
+                                          day: 'numeric', month: 'long', year: 'numeric'
+                                        })}
+                                    </span>
                                     <span><i className="bi bi-clock"></i> {articulo.tiempoLectura} min</span>
                                 </div>
                                 <p className="post-card__excerpt">{articulo.extracto}</p>

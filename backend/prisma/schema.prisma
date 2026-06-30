@@ -1,0 +1,46 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  // url va en prisma.config.ts
+}
+
+enum EstadoArticulo {
+  borrador
+  publicado
+  archivado
+}
+
+model Categoria {
+  id        Int        @id @default(autoincrement())
+  nombre    String     @db.VarChar(100)
+  slug      String     @unique @db.VarChar(100)
+  color     String     @default("#3b82f6") @db.VarChar(7)
+  createdAt DateTime   @default(now()) @map("created_at")
+  articulos Articulo[]
+
+  @@map("categorias")
+}
+
+model Articulo {
+  id               Int            @id @default(autoincrement())
+  titulo           String         @db.VarChar(255)
+  slug             String         @unique @db.VarChar(255)
+  extracto         String?        @db.Text
+  contenido        String?        @db.Text
+  imagen           String?        @db.VarChar(500)
+  autor            String         @default("Administrador") @db.VarChar(100)
+  tiempoLectura    Int            @default(5) @map("tiempo_lectura")
+  estado           EstadoArticulo @default(borrador)
+  fechaPublicacion DateTime?      @map("fecha_publicacion")
+  createdAt        DateTime       @default(now()) @map("created_at")
+  updatedAt        DateTime       @updatedAt @map("updated_at")
+  categoriaId      Int            @map("categoria_id")
+  categoria        Categoria      @relation(fields: [categoriaId], references: [id])
+
+  @@map("articulos")
+}

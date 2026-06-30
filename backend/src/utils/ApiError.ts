@@ -1,0 +1,12 @@
+// src/utils/ApiError.ts
+export class ApiError extends Error {
+  statusCode: number
+  details: unknown
+
+  constructor(statusCode: number, message: string, details: unknown = null) {
+    super(message)
+    this.name = 'ApiError'
+    this.statusCode = statusCode
+    this.details = details
+  }
+}

@@ -1,22 +1,45 @@
 // frontend/src/pages/DetallePage.tsx
 import { useParams, Link, Navigate } from 'react-router-dom'
-import { ARTICULOS_MOCK } from '@/data/mockData'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import type { Articulo } from '@/types'
 import { HeroBanner } from '@/components/HeroBanner'
+import { useState, useEffect } from 'react'
+import { articulosService } from '@/services/articulosService'
 
 export function DetallePage() {
   // Lee el slug de la URL — /articulo/angewomon-digimon-ia
   const { slug } = useParams<{ slug: string }>()
-
+  console.log('Slug recibido:', slug)
   // Busca el artículo en el mock
-  const articulo = ARTICULOS_MOCK.find((a) => a.slug === slug)
+  const [ articulo, setArticulo] = useState<Articulo | null>(null)
+  const [ cargando, setCargando] = useState(true)
+
+  useEffect(() => {
+    if (!slug) return
+    articulosService.getBySlug(slug)
+      .then((res) => {
+        console.log('Artículo recibido del backend:', res.data)
+        setArticulo(res.data)}
+      )
+      .catch(() => setArticulo(null))
+      .finally(() => setCargando(false))
+  }, [slug])
+
+   // ✅ Primero pregunta si SIGUE cargando
+  if (cargando) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <p>Cargando artículo...</p>
+      </div>
+    )
+  }
 
   // Si el slug no existe → redirige al 404
   if (!articulo) {
     return <Navigate to="/404" replace />
   }
-
+  console.log('Renderizando artículo-->:', articulo)
   return (
     <>
       <Header titulo="Publicaciones" />
@@ -42,7 +65,7 @@ export function DetallePage() {
                 </span>
                 <span>
                   <i className="bi bi-calendar3"></i>{' '}
-                  {new Date(articulo.fechaPublicacion).toLocaleDateString('es-CL', {
+                  { new Date(articulo.fechaPublicacion).toLocaleDateString('es-CL', {
                     day: 'numeric', month: 'long', year: 'numeric'
                   })}
                 </span>
@@ -80,11 +103,11 @@ export function DetallePage() {
                 <span className="article-tags__label">
                   <i className="bi bi-tags"></i> Tags:
                 </span>
-                {articulo.tags.map((tag) => (
+                {/* {articulo.tags.map((tag) => (
                   <span key={tag.id} className="article-tag">
                     {tag.nombre}
                   </span>
-                ))}
+                ))} */}
               </div>
 
               {/* Compartir */}
